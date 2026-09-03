@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Elias — in Munich for a couple of days. Text me.">
+<title>I'm in Munich</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  html { color-scheme: dark; }
+  img { max-width: 100%; }
+  :root {
+    --ground: #060606;
+    --ink: #fafafa;
+    --dim: #a8a39d;
+    --faint: #6d6963;
+    --accent: #d9c3a2;
+    --line: rgba(255, 255, 255, 0.085);
+    --line-strong: rgba(255, 255, 255, 0.2);
+    --pad: clamp(22px, 5.5vw, 38px);
+    --sans: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --arabic: "IBM Plex Sans Arabic", "Poppins", Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: clamp(18px, 5vw, 56px) clamp(14px, 4vw, 40px);
+    overflow: hidden;
+  }
+  .stage::before,
+  .stage::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(70px);
+  }
+  .stage::before {
+    width: min(720px, 130vw);
+    aspect-ratio: 1;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255, 252, 246, 0.075), rgba(255, 255, 255, 0) 62%);
+  }
+  .stage::after {
+    width: min(460px, 105vw);
+    aspect-ratio: 1;
+    bottom: -26%;
+    right: -12%;
+    background: radial-gradient(circle, rgba(217, 195, 162, 0.07), rgba(217, 195, 162, 0) 64%);
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: var(--pad);
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.018) 44%, rgba(255, 255, 255, 0.008)),
+      rgba(13, 13, 13, 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(125%);
+    backdrop-filter: blur(20px) saturate(125%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.055) inset,
+      0 30px 70px -34px rgba(0, 0, 0, 0.95);
+    transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--line-strong);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.09) inset,
+        0 44px 90px -42px rgba(0, 0, 0, 1),
+        0 0 90px -34px rgba(217, 195, 162, 0.3);
+    }
+  }
+  .card:focus-within { border-color: var(--line-strong); }
+
+  .inner { display: flex; flex-direction: column; gap: 20px; }
+
+  /* ---------- identity ---------- */
+  .id { display: flex; align-items: center; gap: 13px; }
+  .avatar {
+    flex: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: #111;
+  }
+  .id-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .name {
+    margin: 0;
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .dot {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.8s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(217, 195, 162, 0.35); }
+    70%  { box-shadow: 0 0 0 6px rgba(217, 195, 162, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(217, 195, 162, 0); }
+  }
+
+  /* ---------- type ---------- */
+  .heading {
+    margin: 4px 0 0;
+    font-size: clamp(2.05rem, 8.2vw, 2.85rem);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 44ch;
+    font-size: clamp(0.97rem, 3.3vw, 1.03rem);
+    font-weight: 300;
+    line-height: 1.62;
+    color: rgba(250, 250, 250, 0.9);
+  }
+  .secondary {
+    margin: -8px 0 0;
+    max-width: 44ch;
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--faint);
+  }
+
+  /* ---------- gallery ---------- */
+  .gallery {
+    position: relative;
+    margin: 2px calc(var(--pad) * -1) 0;
+  }
+  .track {
+    display: flex;
+    gap: 9px;
+    padding: 2px var(--pad);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
+
+  .shot {
+    flex: 0 0 clamp(148px, 45%, 208px);
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #0f0f0f;
+  }
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s var(--ease), filter 0.5s var(--ease);
+    filter: saturate(0.94);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .shot:hover img { transform: scale(1.045); filter: saturate(1.05); }
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    width: 34px;
+    height: 34px;
+    display: none;
+    place-items: center;
+    margin-top: -17px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    background: rgba(8, 8, 8, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--ink);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease), background-color 0.3s var(--ease);
+  }
+  .nav.prev { inset-inline-start: calc(var(--pad) - 8px); }
+  .nav.next { inset-inline-end: calc(var(--pad) - 8px); }
+  [dir="rtl"] .nav svg { transform: scaleX(-1); }
+  @media (hover: hover) and (pointer: fine) {
+    .nav { display: grid; }
+    .gallery:hover .nav, .nav:focus-visible { opacity: 1; }
+    .nav:hover { background: rgba(20, 20, 20, 0.85); }
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .pip {
+    width: 5px;
+    height: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease), width 0.3s var(--ease);
+  }
+  .pip[aria-current="true"] { width: 16px; border-radius: 3px; background: rgba(255, 255, 255, 0.75); }
+
+  /* ---------- actions ---------- */
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    margin-top: 2px;
+    padding: 15px 24px;
+    border-radius: 100px;
+    background: #f4f4f4;
+    color: #070707;
+    font-size: 0.97rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: background-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .cta .arrow { flex: none; transition: transform 0.35s var(--ease); }
+  [dir="rtl"] .cta .arrow { transform: scaleX(-1); }
+  @media (hover: hover) and (pointer: fine) {
+    .cta:hover { background: #fff; box-shadow: 0 14px 34px -16px rgba(255, 255, 255, 0.45); }
+    .cta:hover .arrow { transform: translateX(4px); }
+    [dir="rtl"] .cta:hover .arrow { transform: scaleX(-1) translateX(4px); }
+  }
+  .cta:active { transform: translateY(1px); }
+
+  .ghosts { display: flex; gap: 9px; }
+  .ghost {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 10px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--dim);
+    font-size: 0.86rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-align: center;
+    transition: color 0.28s var(--ease), border-color 0.28s var(--ease), background-color 0.28s var(--ease);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ghost:hover { color: var(--ink); border-color: var(--line-strong); background: rgba(255, 255, 255, 0.04); }
+  }
+
+  /* ---------- link rows ---------- */
+  .rows { display: flex; flex-direction: column; margin-top: 4px; }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 56px;
+    padding: 11px 2px;
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
+    text-decoration: none;
+    color: inherit;
+    transition: padding-inline-start 0.3s var(--ease);
+  }
+  .row-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .row-t {
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: var(--ink);
+    transition: color 0.28s var(--ease);
+  }
+  .row-s { font-size: 0.74rem; font-weight: 300; color: var(--faint); }
+  .row-a {
+    flex: none;
+    color: var(--faint);
+    transition: transform 0.32s var(--ease), color 0.28s var(--ease);
+  }
+  [dir="rtl"] .row-a { transform: scaleX(-1); }
+  @media (hover: hover) and (pointer: fine) {
+    .row:hover { padding-inline-start: 8px; }
+    .row:hover .row-a { color: var(--ink); transform: translate(3px, -3px); }
+    [dir="rtl"] .row:hover .row-a { transform: scaleX(-1) translate(3px, -3px); }
+  }
+
+  /* ---------- footer ---------- */
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
+  }
+  .clock {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+    color: var(--faint);
+  }
+  .clock time { color: var(--dim); font-variant-numeric: tabular-nums; }
+
+  .langs { display: flex; align-items: center; gap: 2px; }
+  .lang {
+    min-width: 36px;
+    min-height: 32px;
+    padding: 5px 7px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--faint);
+    font-family: inherit;
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.09em;
+    cursor: pointer;
+    transition: color 0.25s var(--ease), background-color 0.25s var(--ease);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lang:hover { color: var(--dim); background: rgba(255, 255, 255, 0.04); }
+  }
+  .lang[aria-pressed="true"] { color: var(--ink); background: rgba(255, 255, 255, 0.08); }
+  .lang[lang="ar"] { font-family: var(--arabic); font-size: 0.8rem; letter-spacing: 0; }
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  .cta:focus-visible, .ghost:focus-visible { border-radius: 100px; outline-offset: 4px; }
+
+  /* ---------- arabic ---------- */
+  [lang="ar"] .heading,
+  [lang="ar"] .lede,
+  [lang="ar"] .secondary,
+  [lang="ar"] .eyebrow,
+  [lang="ar"] .cta,
+  [lang="ar"] .ghost,
+  [lang="ar"] .row-t,
+  [lang="ar"] .row-s,
+  [lang="ar"] .clock { font-family: var(--arabic); }
+  [lang="ar"] .heading { font-size: clamp(1.85rem, 7vw, 2.5rem); line-height: 1.4; letter-spacing: 0; font-weight: 600; }
+  [lang="ar"] .eyebrow { letter-spacing: 0; text-transform: none; font-size: 0.72rem; }
+  [lang="ar"] .lede { line-height: 1.85; font-weight: 400; }
+  [lang="ar"] .secondary { line-height: 1.8; font-weight: 400; }
+  [lang="ar"] .ghost { font-size: 0.82rem; }
+
+  /* ---------- mobile ---------- */
+  @media (max-width: 560px) {
+    .card { border-radius: 20px; }
+    .card:hover { transform: none; }
+    .ghosts { gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .track { scroll-behavior: auto; }
+    .card:hover { transform: none; }
+  }
+</style>
+
+</head>
+<body>
+<main class="stage">
+  <article class="card" id="card" lang="en" dir="ltr">
+    <div class="inner">
+
+      <header class="id">
+        <img class="avatar" src="https://res.cloudinary.com/dqje367sj/image/upload/c_thumb,g_face,z_0.55,w_320,h_320,f_auto,q_auto:good/v1788438796/IMG_0468_rzoeug.jpg" alt="Elias" width="50" height="50" decoding="async">
+        <div class="id-text">
+          <p class="name">Elias</p>
+          <p class="eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            <span data-i18n="eyebrow">MUNICH · NEXT COUPLE OF DAYS</span>
+          </p>
+        </div>
+      </header>
+
+      <h1 class="heading" data-i18n="heading">I&rsquo;m in Munich.</h1>
+
+      <p class="lede" data-i18n="body">If you want to make some nice plans — party, dinner, drinks, events or whatever — text me.</p>
+
+      <p class="secondary" data-i18n="secondary">Always down to meet interesting people and discover good places.</p>
+
+      <div class="gallery">
+        <div class="track" id="track" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Photos" data-i18n-aria="galleryAria">
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1788438640/IMG_1712_nyhuxz.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1788438640/IMG_1690_sjkxa5.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1788438640/IMG_1702_df7mnc.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1788438640/IMG_1790_ja5npq.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1788438639/IMG_1768_ujg1rp.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="shot"><img src="https://res.cloudinary.com/dqje367sj/image/upload/c_fill,g_auto,ar_4:5,w_680,f_auto,q_auto:good/v1787594798/SnapInsta.to_651778297_18093245648513950_2028405927839144605_n_betqge.jpg" alt="" loading="lazy" decoding="async"></figure>
+        </div>
+        <button class="nav prev" type="button" data-step="-1" data-i18n-aria="prevAria" aria-label="Previous photo">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="nav next" type="button" data-step="1" data-i18n-aria="nextAria" aria-label="Next photo">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dots" id="dots"></div>
+      </div>
+
+      <a class="cta" href="https://wa.me/34644075065" target="_blank" rel="noopener noreferrer" data-i18n-aria="ctaAria">
+        <span data-i18n="cta">Text me on WhatsApp</span>
+        <svg class="arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <div class="ghosts">
+        <a class="ghost" href="https://www.instagram.com/eliasburgzzz" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="ghost" href="mailto:ebcliicks@gmail.com" data-i18n="email">Email</a>
+      </div>
+
+      <nav class="rows" aria-label="More from Elias" data-i18n-aria="rowsAria">
+        <a class="row" href="https://www.tiktok.com/@publicphotogallery" target="_blank" rel="noopener noreferrer">
+          <span class="row-text">
+            <span class="row-t">TikTok</span>
+            <span class="row-s" data-i18n="tiktokSub">Travel community</span>
+          </span>
+          <svg class="row-a" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.6 4.5h5.9v5.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="row" href="https://premium-portfolio-phi.vercel.app/en" target="_blank" rel="noopener noreferrer">
+          <span class="row-text">
+            <span class="row-t" data-i18n="portfolio">Portfolio</span>
+            <span class="row-s" data-i18n="portfolioSub">My work</span>
+          </span>
+          <svg class="row-a" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.6 4.5h5.9v5.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="row" href="https://mallorcaslocal.com" target="_blank" rel="noopener noreferrer">
+          <span class="row-text">
+            <span class="row-t">Mallorca&rsquo;s Local</span>
+            <span class="row-s" data-i18n="mallorcaSub">Heading to Mallorca? Start here</span>
+          </span>
+          <svg class="row-a" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.6 4.5h5.9v5.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </nav>
+
+      <div class="foot">
+        <p class="clock">
+          <span data-i18n="timeLabel">Munich time</span>
+          <time id="clock" datetime="">&mdash;</time>
+        </p>
+        <div class="langs" role="group" id="langs" aria-label="Language">
+          <button class="lang" type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button class="lang" type="button" data-lang="de" aria-pressed="false" lang="de">DE</button>
+          <button class="lang" type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+          <button class="lang" type="button" data-lang="it" aria-pressed="false" lang="it">IT</button>
+          <button class="lang" type="button" data-lang="ar" aria-pressed="false" lang="ar" aria-label="العربية">ع</button>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</main>
+
+<script>
+  (function () {
+    "use strict";
+
+    var COPY = {
+      en: {
+        eyebrow: "MUNICH · NEXT COUPLE OF DAYS",
+        heading: "I’m in Munich.",
+        body: "If you want to make some nice plans — party, dinner, drinks, events or whatever — text me.",
+        secondary: "Always down to meet interesting people and discover good places.",
+        cta: "Text me on WhatsApp",
+        ctaAria: "Text me on WhatsApp (opens in a new tab)",
+        email: "Email",
+        portfolio: "Portfolio",
+        portfolioSub: "My work",
+        tiktokSub: "Travel community",
+        mallorcaSub: "Heading to Mallorca? Start here",
+        rowsAria: "More from Elias",
+        galleryAria: "Photos",
+        prevAria: "Previous photo",
+        nextAria: "Next photo",
+        timeLabel: "Munich time",
+        langAria: "Language"
+      },
+      de: {
+        eyebrow: "MÜNCHEN · DIE NÄCHSTEN TAGE",
+        heading: "Ich bin in München.",
+        body: "Wenn du Lust auf gute Pläne hast — Party, Dinner, Drinks, Events oder was auch immer — schreib mir.",
+        secondary: "Immer offen dafür, interessante Leute kennenzulernen und gute Orte zu entdecken.",
+        cta: "Schreib mir auf WhatsApp",
+        ctaAria: "Schreib mir auf WhatsApp (öffnet in neuem Tab)",
+        email: "E-Mail",
+        portfolio: "Portfolio",
+        portfolioSub: "Meine Arbeit",
+        tiktokSub: "Reise-Community",
+        mallorcaSub: "Du fährst nach Mallorca? Fang hier an",
+        rowsAria: "Mehr von Elias",
+        galleryAria: "Fotos",
+        prevAria: "Vorheriges Foto",
+        nextAria: "Nächstes Foto",
+        timeLabel: "Uhrzeit in München",
+        langAria: "Sprache"
+      },
+      fr: {
+        eyebrow: "MUNICH · POUR QUELQUES JOURS",
+        heading: "Je suis à Munich.",
+        body: "Si tu veux faire des plans sympas — soirée, dîner, verres, événements ou autre — écris-moi.",
+        secondary: "Toujours partant pour rencontrer des personnes intéressantes et découvrir de bonnes adresses.",
+        cta: "Écris-moi sur WhatsApp",
+        ctaAria: "Écris-moi sur WhatsApp (ouvre un nouvel onglet)",
+        email: "E-mail",
+        portfolio: "Portfolio",
+        portfolioSub: "Mon travail",
+        tiktokSub: "Communauté voyage",
+        mallorcaSub: "Tu vas à Majorque ? Commence ici",
+        rowsAria: "Plus d’Elias",
+        galleryAria: "Photos",
+        prevAria: "Photo précédente",
+        nextAria: "Photo suivante",
+        timeLabel: "Heure à Munich",
+        langAria: "Langue"
+      },
+      it: {
+        eyebrow: "MONACO DI BAVIERA · PER QUALCHE GIORNO",
+        heading: "Sono a Monaco.",
+        body: "Se ti va di fare qualcosa di bello — festa, cena, drink, eventi o qualsiasi altra cosa — scrivimi.",
+        secondary: "Sempre disponibile a conoscere persone interessanti e scoprire bei posti.",
+        cta: "Scrivimi su WhatsApp",
+        ctaAria: "Scrivimi su WhatsApp (si apre in una nuova scheda)",
+        email: "Email",
+        portfolio: "Portfolio",
+        portfolioSub: "I miei lavori",
+        tiktokSub: "Community di viaggio",
+        mallorcaSub: "Vai a Maiorca? Inizia da qui",
+        rowsAria: "Altro di Elias",
+        galleryAria: "Foto",
+        prevAria: "Foto precedente",
+        nextAria: "Foto successiva",
+        timeLabel: "Ora a Monaco",
+        langAria: "Lingua"
+      },
+      ar: {
+        eyebrow: "ميونخ · خلال الأيام القادمة",
+        heading: "أنا في ميونخ.",
+        body: "إذا كنت ترغب في القيام بخطط ممتعة — حفلة، عشاء، مشروبات، فعاليات أو أي شيء آخر — راسلني.",
+        secondary: "دائمًا سعيد بالتعرف على أشخاص مثيرين للاهتمام واكتشاف أماكن جميلة.",
+        cta: "راسلني على واتساب",
+        ctaAria: "راسلني على واتساب (يفتح في علامة تبويب جديدة)",
+        email: "البريد الإلكتروني",
+        portfolio: "أعمالي",
+        portfolioSub: "شغلي",
+        tiktokSub: "مجتمع السفر",
+        mallorcaSub: "ذاهب إلى مايوركا؟ ابدأ من هنا",
+        rowsAria: "المزيد من إلياس",
+        galleryAria: "صور",
+        prevAria: "الصورة السابقة",
+        nextAria: "الصورة التالية",
+        timeLabel: "التوقيت في ميونخ",
+        langAria: "اللغة"
+      }
+    };
+
+    var card = document.getElementById("card");
+    var langBar = document.getElementById("langs");
+    var buttons = [].slice.call(langBar.querySelectorAll(".lang"));
+    var textNodes = [].slice.call(card.querySelectorAll("[data-i18n]"));
+    var ariaNodes = [].slice.call(card.querySelectorAll("[data-i18n-aria]"));
+
+    /* ---------- language ---------- */
+    function apply(lang) {
+      var t = COPY[lang] || COPY.en;
+      var rtl = lang === "ar";
+
+      textNodes.forEach(function (el) {
+        var k = el.getAttribute("data-i18n");
+        if (t[k]) { el.textContent = t[k]; }
+      });
+      ariaNodes.forEach(function (el) {
+        var k = el.getAttribute("data-i18n-aria");
+        if (t[k]) { el.setAttribute("aria-label", t[k]); }
+      });
+
+      langBar.setAttribute("aria-label", t.langAria);
+      card.setAttribute("lang", lang);
+      card.setAttribute("dir", rtl ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", lang);
+      document.documentElement.setAttribute("dir", rtl ? "rtl" : "ltr");
+      buttons.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
+      });
+      tick();
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { apply(b.getAttribute("data-lang")); });
+    });
+
+    /* ---------- carousel ---------- */
+    var track = document.getElementById("track");
+    var dots = document.getElementById("dots");
+    var shots = [].slice.call(track.querySelectorAll(".shot"));
+    var pips = [];
+
+    shots.forEach(function (shot, i) {
+      var pip = document.createElement("button");
+      pip.type = "button";
+      pip.className = "pip";
+      pip.setAttribute("aria-label", "Photo " + (i + 1));
+      pip.setAttribute("aria-current", i === 0 ? "true" : "false");
+      pip.addEventListener("click", function () { goTo(i); });
+      dots.appendChild(pip);
+      pips.push(pip);
+    });
+
+    function current() {
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var best = 0, bestD = Infinity;
+      shots.forEach(function (s, i) {
+        var c = s.offsetLeft + s.offsetWidth / 2;
+        var d = Math.abs(c - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      return best;
+    }
+
+    function goTo(i) {
+      var s = shots[Math.max(0, Math.min(shots.length - 1, i))];
+      track.scrollTo({ left: s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2, behavior: "smooth" });
+    }
+
+    function sync() {
+      var i = current();
+      pips.forEach(function (p, n) { p.setAttribute("aria-current", n === i ? "true" : "false"); });
+    }
+
+    var raf;
+    track.addEventListener("scroll", function () {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(sync);
+    }, { passive: true });
+
+    [].slice.call(card.querySelectorAll(".nav")).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var dir = card.getAttribute("dir") === "rtl" ? -1 : 1;
+        goTo(current() + Number(btn.getAttribute("data-step")) * dir);
+      });
+    });
+
+    track.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") { return; }
+      e.preventDefault();
+      var rtl = card.getAttribute("dir") === "rtl";
+      var fwd = (e.key === "ArrowRight") !== rtl;
+      goTo(current() + (fwd ? 1 : -1));
+    });
+
+    /* ---------- munich clock ---------- */
+    var clock = document.getElementById("clock");
+    function tick() {
+      var lang = card.getAttribute("lang") || "en";
+      var now = new Date();
+      try {
+        clock.textContent = new Intl.DateTimeFormat(lang, {
+          hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: "Europe/Berlin"
+        }).format(now);
+      } catch (err) {
+        clock.textContent = now.toTimeString().slice(0, 5);
+      }
+      clock.setAttribute("datetime", now.toISOString());
+    }
+
+    apply("en");
+    setInterval(tick, 20000);
+  })();
+</script>
+</body>
+</html>
